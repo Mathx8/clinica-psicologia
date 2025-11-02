@@ -1,12 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
+
 import Image from "next/image";
 import Logo from "@/public/logo.png";
 import { MdCalendarMonth, MdPeople, MdSettings } from "react-icons/md";
+
+import Perfil from "./Perfil";
 import Configuracao from "./Configuracao";
 
 export default function Header({ ativo, setAtivo }) {
     const [idioma, setIdioma] = useState(() => localStorage.getItem("idioma") || "pt");
+    const [mostrarPerfil, setMostrarPerfil] = useState(false);
     const [mostrarConfig, setMostrarConfig] = useState(false);
 
     useEffect(() => {
@@ -17,7 +21,11 @@ export default function Header({ ativo, setAtivo }) {
         <>
             <header className="flex items-center justify-between w-full px-6 md:px-12 py-4 bg-[#FDFBD4] dark:bg-[#0a0a0a] text-[#D33865] shadow-sm transition-colors duration-500">
 
-                <a className="group flex items-center gap-3 hover:opacity-85 transition-all" href="#" title="Perfil">
+                <button
+                    onClick={() => setMostrarPerfil(true)}
+                    className="group flex items-center gap-3 hover:opacity-85 transition-all cursor-pointer"
+                    title="Perfil"
+                >
                     <Image
                         className="bg-[#fff9d9] dark:bg-[#121212] p-[0.1rem] rounded-full shadow-inner border border-[#d7cfc0]/40"
                         src={Logo}
@@ -29,12 +37,12 @@ export default function Header({ ativo, setAtivo }) {
                         <span className="text-gray-600 dark:text-gray-400">Dr.</span>{" "}
                         <span className="text-[#D33865]">Tiago</span>
                     </span>
-                </a>
+                </button>
 
                 <nav className="hidden md:flex items-center gap-8 bg-[#fff9d9] dark:bg-[#121212] px-4 py-2 rounded-full shadow-inner border border-[#d7cfc0]/40">
                     <button
                         onClick={() => setAtivo("calendario")}
-                        className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-300
+                        className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer
                         ${ativo === "calendario"
                                 ? "bg-[#D33865] text-[#FDFBD4] shadow-md scale-105"
                                 : "text-[#b12c54] hover:bg-[#f9d7df] dark:hover:bg-[#2a0f15] hover:text-[#D33865]"
@@ -48,7 +56,7 @@ export default function Header({ ativo, setAtivo }) {
 
                     <button
                         onClick={() => setAtivo("pacientes")}
-                        className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-300
+                        className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer
                         ${ativo === "pacientes"
                                 ? "bg-[#D33865] text-[#FDFBD4] shadow-md scale-105"
                                 : "text-[#b12c54] hover:bg-[#f9d7df] dark:hover:bg-[#2a0f15] hover:text-[#D33865]"
@@ -62,11 +70,13 @@ export default function Header({ ativo, setAtivo }) {
                 <button
                     onClick={() => setMostrarConfig(true)}
                     title="Configurações"
-                    className="flex items-center bg-[#fff9d9] dark:bg-[#121212] p-2 rounded-full shadow-inner border border-[#d7cfc0]/40"
+                    className="flex items-center bg-[#fff9d9] dark:bg-[#121212] p-2 rounded-full shadow-inner border border-[#d7cfc0]/40 cursor-pointer"
                 >
                     <MdSettings className="hover:rotate-12 transition-transform" size={26} />
                 </button>
             </header>
+
+            {mostrarPerfil && <Perfil onClose={() => setMostrarPerfil(false)} />}
 
             {mostrarConfig && (
                 <Configuracao

@@ -45,7 +45,7 @@ export default function CadastroPaciente() {
             <button className="w-full text-black font-bold bg-[#38d3a6] p-5 rounded-full shadow-lg cursor-pointer hover:opacity-90 transition">
                 CADASTRE-SE
             </button>
-            <p className="text-sm">
+            <p className="text-black dark:text-[#FDFBD4] text-sm">
                 Já tem uma conta?{" "}
                 <button
                     onClick={handleVoltarLogin}

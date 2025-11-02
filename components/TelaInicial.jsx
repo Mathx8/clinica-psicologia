@@ -39,7 +39,7 @@ export default function TelaInicial() {
                                 ? "text-[#D33865]"
                                 : loginSelecionado === "paciente"
                                     ? "text-[#38d3a6]"
-                                    : ""
+                                    : "text-black dark:text-[#FDFBD4]"
                             }`}
                     >
                         CLÍNICA <br /> LABIRINTO DA <br /> MENTE

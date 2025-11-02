@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",        // rota do frontend
+        destination: "https://api-psicanalise.onrender.com/:path*", // destino (backend)
+      },
+    ];
+  },
 };
 
 export default nextConfig;
