@@ -1,6 +1,7 @@
 import { Macondo, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { IdiomaProvider } from "@/context/IdiomaContext";
 
 const macondo = Macondo({
   variable: "--font-macondo",
@@ -20,11 +21,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-br" suppressHydrationWarning> 
+    <html lang="pt-br" suppressHydrationWarning>
       <body
         className={`${macondo.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        <IdiomaProvider>
+          <Providers>{children}</Providers>
+        </IdiomaProvider>
       </body>
     </html>
   );

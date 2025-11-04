@@ -3,6 +3,8 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import CalendarioPsicologo from "@/components/CalendarioPsicologo";
 import PacientesPsicologo from "@/components/PacientesPsicologo";
+import Disponibilidade from "@/components/Disponibilidade";
+import Sala from "@/components/Sala";
 
 export default function Psicologo() {
   const [ativo, setAtivo] = useState("calendario");
@@ -18,6 +20,8 @@ export default function Psicologo() {
       >
         {ativo === "calendario" && <CalendarioPsicologo />}
         {ativo === "pacientes" && <PacientesPsicologo />}
+        {ativo === "disponibilidade" && <Disponibilidade />}
+        {ativo === "salas" && <Sala />}
       </div>
     </div>
   );
