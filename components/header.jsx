@@ -144,4 +144,4 @@ export default function Header({ ativo, setAtivo }) {
             {mostrarConfig && <Configuracao idioma={idioma} setIdioma={setIdioma} onClose={() => setMostrarConfig(false)} />}
         </>
     );
-}
+} //opa

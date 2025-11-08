@@ -87,12 +87,15 @@ export const loginPsicologo = async (login, senha) => {
 export const loginPaciente = async (email, senha) => {
   try {
     const response = await apiClient.post("/login/paciente", { email, senha });
-    return response.data.paciente;
+    return response.data.paciente; // paciente vem dentro do JSON
   } catch (error) {
     const msg =
-      error.response?.data?.erro || "Erro ao tentar fazer login.";
+      error.response?.data?.erro ||
+      error.response?.data?.mensagem ||
+      "Erro ao tentar fazer login.";
     throw new Error(msg);
   }
 };
+
 
 export default apiClient;
