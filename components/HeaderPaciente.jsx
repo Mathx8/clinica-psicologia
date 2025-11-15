@@ -1,8 +1,5 @@
-"use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { MdCalendarMonth, MdChat, MdPerson, MdEventAvailable } from "react-icons/md";
-import Logo from "@/public/logo.png";
 
 export default function HeaderPaciente({ ativo, setAtivo, paciente }) {
   const [menuAberto, setMenuAberto] = useState(false);
@@ -11,7 +8,9 @@ export default function HeaderPaciente({ ativo, setAtivo, paciente }) {
     if (!paciente) {
       const dados = localStorage.getItem("paciente");
       if (dados) {
-        try {} catch (e) {
+        try {
+          // caso queira setar paciente
+        } catch (e) {
           console.error("Erro ao ler paciente local:", e);
         }
       }
@@ -21,23 +20,20 @@ export default function HeaderPaciente({ ativo, setAtivo, paciente }) {
   const nomeCurto = paciente?.nome ? paciente.nome.split(" ")[0] : "Paciente";
 
   const itens = [
-    { id: "inicio", label: "Início", icon: <MdChat size={18} /> },
-    { id: "agendar", label: "Agendar", icon: <MdEventAvailable size={18} /> },
-    { id: "terapia", label: "Terapias", icon: <MdCalendarMonth size={18} /> },
-    { id: "perfil", label: "Perfil", icon: <MdPerson size={18} /> },
+    { id: "inicio", label: "Início", icon: "💬" },
+    { id: "agendar", label: "Agendar", icon: "📅" },
+    { id: "terapia", label: "Terapias", icon: "🧠" },
+    { id: "perfil", label: "Perfil", icon: "👤" },
   ];
 
   return (
-    <header
-      className="w-full py-4 shadow-md"
-      style={{ backgroundColor: "#CBD9E6" }}
-    >
+    <header className="w-full py-4 shadow-md" style={{ backgroundColor: "#CBD9E6" }}>
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12">
 
         {/* ESQUERDA — Logo */}
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-full overflow-hidden bg-white p-[2px]">
-            <Image src={Logo} alt="Logo" width={44} height={44} />
+            <Image src="/logopaciente.jpg" alt="Logo" width={44} height={44} />
           </div>
           <div>
             <h1 className="text-lg font-semibold" style={{ color: "#2F4156" }}>
@@ -62,8 +58,8 @@ export default function HeaderPaciente({ ativo, setAtivo, paciente }) {
               }}
               onMouseEnter={(e) => {
                 if (ativo !== id) {
-                  e.currentTarget.style.backgroundColor = "#567C8D"; // Hover fundo
-                  e.currentTarget.style.color = "#FFFFFF";            // Hover texto
+                  e.currentTarget.style.backgroundColor = "#567C8D";
+                  e.currentTarget.style.color = "#FFFFFF";
                 }
               }}
               onMouseLeave={(e) => {
@@ -80,12 +76,9 @@ export default function HeaderPaciente({ ativo, setAtivo, paciente }) {
         </nav>
 
         {/* DIREITA — Perfil */}
-        <div
-          className="hidden sm:flex items-center gap-3 px-3 py-2 rounded-full shadow-sm hover:scale-[1.03] transition-transform"
-          style={{ backgroundColor: "#FFFFFF" }}
-        >
+        <div className="hidden sm:flex items-center gap-3 px-3 py-2 rounded-full shadow-sm hover:scale-[1.03] transition-transform" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="w-8 h-8 rounded-full overflow-hidden bg-white p-[2px]">
-            <Image src={Logo} alt="icone paciente" width={32} height={32} />
+            <Image src="/logopaciente.jpg" alt="icone paciente" width={32} height={32} />
           </div>
           <div className="text-left">
             <div className="text-sm font-semibold" style={{ color: "#2F4156" }}>
@@ -98,11 +91,7 @@ export default function HeaderPaciente({ ativo, setAtivo, paciente }) {
         </div>
 
         {/* MENU MOBILE */}
-        <button
-          className="md:hidden px-3 py-2 rounded-full bg-white/30"
-          style={{ color: "#2F4156" }}
-          onClick={() => setMenuAberto(!menuAberto)}
-        >
+        <button className="md:hidden px-3 py-2 rounded-full bg-white/30" style={{ color: "#2F4156" }} onClick={() => setMenuAberto(!menuAberto)}>
           ☰
         </button>
       </div>
@@ -110,10 +99,7 @@ export default function HeaderPaciente({ ativo, setAtivo, paciente }) {
       {/* MENU MOBILE DROP */}
       {menuAberto && (
         <div className="md:hidden mt-2 px-6 pb-4">
-          <div
-            className="rounded-xl p-3 flex flex-col gap-2"
-            style={{ backgroundColor: "#FFFFFF" }}
-          >
+          <div className="rounded-xl p-3 flex flex-col gap-2" style={{ backgroundColor: "#FFFFFF" }}>
             {itens.map(({ id, label }) => (
               <button
                 key={id}
