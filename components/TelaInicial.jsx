@@ -11,8 +11,8 @@ export default function TelaInicial() {
     return (
         <div className="min-h-screen flex flex-col md:flex-row items-stretch bg-gradient-to-t from-[#1493D1] to-[#ccf0f6] relative">
 
-            {/* Lado esquerdo — imagem da clínica */}
-            <div className="hidden md:flex flex-[1.3] min-h-full bg-[#1493D1] bg-[url('/teste.png')] bg-contain bg-center bg-no-repeat relative">
+            {/* Lado esquerdo — imagem da clínica visível em qualquer tela */}
+            <div className="flex flex-[0.5] md:flex-[1.3] min-h-[200px] md:min-h-full bg-[#1493D1] bg-[url('/teste.png')] bg-contain bg-center bg-no-repeat relative">
                 <div className="absolute top-0 right-0 h-full w-[4px] bg-gradient-to-b from-[#001f3f] via-[#1493D1] to-[#001f3f] animate-borderMove" />
             </div>
 
@@ -21,9 +21,9 @@ export default function TelaInicial() {
                 <button
                     onClick={() => setLoginSelecionado(null)}
                     className={`group absolute right-0 top-1/5 transform -translate-y-1/2 px-1 py-2 rounded-l-full cursor-pointer font-semibold hover:opacity-90 transition flex items-center justify-center ${
-                        loginSelecionado === "psicologo"
+                        loginSelecionado === "psicologo" || loginSelecionado === "paciente"
                             ? "bg-[#001f3f] text-white"
-                            : "bg-[#001f3f] text-white"
+                            : ""
                     }`}
                 >
                     <MdKeyboardArrowLeft size={24} />
@@ -75,7 +75,7 @@ export default function TelaInicial() {
 
                                 <button
                                     onClick={() => setLoginSelecionado("paciente")}
-                                    className="w-1/2 h-full bg-[#001f3f] text-white text-lg sm:text-xl font-bold flex items-center justify-center hover:scale-110 transition-transform duration-300 rounded-r-full cursor-pointer"
+                                    className="w-1/2 h-full bg-white text-[#001f3f] text-lg sm:text-xl font-bold flex items-center justify-center hover:scale-110 transition-transform duration-300 rounded-r-full cursor-pointer"
                                 >
                                     PACIENTE
                                 </button>
