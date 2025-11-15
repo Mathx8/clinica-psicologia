@@ -44,7 +44,7 @@ export default function LoginPsicologo() {
       <button
         onClick={handleLogin}
         disabled={carregando}
-        className="w-full font-bold bg-[#D33865] p-5 rounded-full shadow-lg cursor-pointer disabled:opacity-60"
+        className="w-full font-bold bg-[#001f3f] p-5 rounded-full shadow-lg cursor-pointer disabled:opacity-60"
       >
         {carregando ? "Entrando..." : "ENTRAR"}
       </button>

@@ -32,7 +32,7 @@ export default function TelaInicial() {
                     relative
                 "
             >
-                <div className="absolute top-0 right-0 h-full w-[4px] bg-gradient-to-b from-[#D33865] via-[#38d3a6] to-[#D33865] animate-borderMove" />
+                <div className="absolute top-0 right-0 h-full w-[4px] bg-gradient-to-b from-[#001f3f] via-[#1493D1] to-[#001f3f] animate-borderMove" />
             </div>
 
             {loginSelecionado && (
@@ -40,7 +40,7 @@ export default function TelaInicial() {
                     onClick={() => setLoginSelecionado(null)}
                     className={`group absolute right-0 top-1/5 transform -translate-y-1/2 px-1 py-2 rounded-l-full cursor-pointer font-semibold hover:opacity-90 transition flex items-center justify-center ${
                         loginSelecionado === "psicologo"
-                            ? "bg-[#D33865] text-black"
+                            ? "bg-[#001f3f] text-white"
                             : loginSelecionado === "paciente"
                                 ? "bg-[#38d3a6] text-black"
                                 : ""
@@ -88,14 +88,14 @@ export default function TelaInicial() {
                             <div className="flex w-full h-full">
                                 <button
                                     onClick={() => setLoginSelecionado("psicologo")}
-                                    className="w-1/2 h-full bg-black text-white text-xl font-bold flex items-center justify-center hover:scale-110 transition-transform duration-300 rounded-l-full cursor-pointer"
+                                    className="w-1/2 h-full bg-[#001f3f] text-white text-xl font-bold flex items-center justify-center hover:scale-110 transition-transform duration-300 rounded-l-full cursor-pointer"
                                 >
                                     PSICÓLOGO
                                 </button>
 
                                 <button
                                     onClick={() => setLoginSelecionado("paciente")}
-                                    className="w-1/2 h-full text-[#38d3a6] text-xl font-bold flex items-center justify-center hover:scale-110 transition-transform duration-300 rounded-r-full cursor-pointer"
+                                    className="w-1/2 h-full text-[#001f3f] text-xl font-bold flex items-center justify-center hover:scale-110 transition-transform duration-300 rounded-r-full cursor-pointer"
                                 >
                                     PACIENTE
                                 </button>
