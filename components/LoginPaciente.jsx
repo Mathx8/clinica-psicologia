@@ -49,14 +49,14 @@ export default function LoginPaciente() {
 
       {erro && <p className="text-red-600 text-sm">{erro}</p>}
 
-      <a className="text-[#38d3a6] self-start" href="#">
+      <a className="text-[#0A3A5A] self-start hover:underline transition-colors" href="#">
         Esqueceu a senha?
       </a>
 
       <button
         onClick={handleLogin}
         disabled={carregando}
-        className="w-full text-black font-bold bg-[#38d3a6] p-5 rounded-full shadow-lg cursor-pointer disabled:opacity-60"
+        className="w-full text-white font-bold bg-[#0A3A5A] p-5 rounded-full shadow-lg cursor-pointer disabled:opacity-60 hover:bg-[#073057] transition-colors"
       >
         {carregando ? "Entrando..." : "ENTRAR"}
       </button>
@@ -65,7 +65,7 @@ export default function LoginPaciente() {
         Não é cliente ainda?{" "}
         <button
           onClick={handleCadastroClick}
-          className="text-[#38d3a6] font-semibold hover:underline transition"
+          className="text-[#0A3A5A] font-semibold hover:underline transition-colors"
         >
           Faça seu cadastro
         </button>
