@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import apiClient from "@/services/apiClient";
+import apiClient from "@/services/api";
 
 export default function CadastroPaciente() {
     const [nome, setNome] = useState("");
