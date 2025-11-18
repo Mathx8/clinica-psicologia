@@ -1,30 +1,29 @@
 "use client";
 import { useState } from "react";
 import LoginPaciente from "./LoginPaciente";
-import apiClient from "@/services/api";
+import apiClient from "@/services/api"; // <- IMPORTANTE: mesmo client usado no login
 
 export default function CadastroPaciente() {
     const [mostrarLogin, setMostrarLogin] = useState(false);
 
-    // Campos do formulário
+    // Estados dos inputs
     const [nome, setNome] = useState("");
-    const [idade, setIdade] = useState("");
-    const [genero, setGenero] = useState("");
-    const [telefone, setTelefone] = useState("");
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [genero, setGenero] = useState("");
 
-    // Mensagens
+    // Estado para mensagens
     const [erro, setErro] = useState("");
     const [sucesso, setSucesso] = useState("");
 
     const handleVoltarLogin = () => setMostrarLogin(true);
 
+    // Função de envio para API
     const handleCadastro = async () => {
         setErro("");
         setSucesso("");
 
-        if (!nome || !idade || !genero || !telefone || !email || !senha) {
+        if (!nome || !email || !senha || !genero) {
             setErro("Preencha todos os campos.");
             return;
         }
@@ -32,20 +31,16 @@ export default function CadastroPaciente() {
         try {
             const response = await apiClient.post("/pacientes", {
                 nome,
-                idade: Number(idade),
-                genero,
-                telefone,
                 email,
-                senha
+                senha,
+                genero,
             });
 
-            setSucesso("Paciente cadastrado com sucesso!");
-
-            // Redireciona para login automaticamente
+            setSucesso("Cadastro realizado com sucesso!");
             setTimeout(() => setMostrarLogin(true), 1500);
 
         } catch (error) {
-            console.error("Erro ao cadastrar paciente:", error);
+            console.log("Erro no cadastro:", error);
 
             const msg =
                 error.response?.data?.erro ||
@@ -61,8 +56,9 @@ export default function CadastroPaciente() {
     return (
         <div className="flex flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-10 w-full items-center">
 
+            {/* CAMPOS */}
             <input
-                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
+                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black placeholder:text-left"
                 type="text"
                 placeholder="Nome"
                 value={nome}
@@ -70,34 +66,7 @@ export default function CadastroPaciente() {
             />
 
             <input
-                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
-                type="number"
-                placeholder="Idade"
-                value={idade}
-                onChange={(e) => setIdade(e.target.value)}
-            />
-
-            <select
-                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
-                value={genero}
-                onChange={(e) => setGenero(e.target.value)}
-            >
-                <option value="">--Selecione seu gênero--</option>
-                <option value="masculino">Masculino</option>
-                <option value="feminino">Feminino</option>
-                <option value="outro">Outro</option>
-            </select>
-
-            <input
-                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
-                type="text"
-                placeholder="Telefone"
-                value={telefone}
-                onChange={(e) => setTelefone(e.target.value)}
-            />
-
-            <input
-                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
+                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black placeholder:text-left"
                 type="email"
                 placeholder="Email"
                 value={email}
@@ -112,6 +81,19 @@ export default function CadastroPaciente() {
                 onChange={(e) => setSenha(e.target.value)}
             />
 
+            <select
+                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
+                value={genero}
+                onChange={(e) => setGenero(e.target.value)}
+                required
+            >
+                <option value="">--Selecione seu gênero--</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="outro">Outro</option>
+            </select>
+
+            {/* BOTÃO */}
             <button
                 onClick={handleCadastro}
                 className="w-full text-black font-bold bg-[#38d3a6] p-5 rounded-full shadow-lg cursor-pointer hover:opacity-90 transition"
@@ -119,10 +101,12 @@ export default function CadastroPaciente() {
                 CADASTRE-SE
             </button>
 
+            {/* MENSAGENS */}
             {erro && <p className="text-red-600 font-semibold">{erro}</p>}
             {sucesso && <p className="text-green-600 font-semibold">{sucesso}</p>}
 
-            <p className="text-black text-sm">
+            {/* VOLTAR PARA LOGIN */}
+            <p className="text-black dark:text-[#FDFBD4] text-sm">
                 Já tem uma conta?{" "}
                 <button
                     onClick={handleVoltarLogin}
