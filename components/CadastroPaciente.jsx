@@ -1,34 +1,16 @@
 "use client";
 import { useState } from "react";
-import LoginPaciente from "./LoginPaciente";
-import apiClient from "@/services/api";
+import apiClient from "@/services/apiClient";
 
 export default function CadastroPaciente() {
-    const [mostrarLogin, setMostrarLogin] = useState(false);
-
-    // Campos do formulário
     const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
     const [idade, setIdade] = useState("");
     const [genero, setGenero] = useState("");
     const [telefone, setTelefone] = useState("");
-    const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
-
-    // Mensagens
-    const [erro, setErro] = useState("");
-    const [sucesso, setSucesso] = useState("");
-
-    const handleVoltarLogin = () => setMostrarLogin(true);
 
     const handleCadastro = async () => {
-        setErro("");
-        setSucesso("");
-
-        if (!nome || !idade || !genero || !telefone || !email || !senha) {
-            setErro("Preencha todos os campos.");
-            return;
-        }
-
         try {
             const response = await apiClient.post("/pacientes", {
                 nome,
@@ -36,101 +18,70 @@ export default function CadastroPaciente() {
                 genero,
                 telefone,
                 email,
-                senha
+                senha_bash: senha
             });
 
-            setSucesso("Paciente cadastrado com sucesso!");
-
-            // Redireciona para login automaticamente
-            setTimeout(() => setMostrarLogin(true), 1500);
+            alert("Paciente cadastrado!");
+            console.log(response.data);
 
         } catch (error) {
             console.error("Erro ao cadastrar paciente:", error);
-
-            const msg =
-                error.response?.data?.erro ||
-                error.response?.data?.mensagem ||
-                "Erro ao realizar cadastro.";
-
-            setErro(msg);
+            alert(error.response?.data?.erros || "Erro desconhecido.");
         }
     };
 
-    if (mostrarLogin) return <LoginPaciente />;
-
     return (
-        <div className="flex flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-10 w-full items-center">
-
-            <input
-                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
-                type="text"
+        <div className="flex flex-col gap-4 w-full items-center">
+            <input className="w-full p-3 rounded-xl bg-[#E3FCFF]"
                 placeholder="Nome"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
             />
 
-            <input
-                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
-                type="number"
+            <input className="w-full p-3 rounded-xl bg-[#E3FCFF]"
+                placeholder="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input className="w-full p-3 rounded-xl bg-[#E3FCFF]"
+                placeholder="Senha"
+                type="password"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+            />
+
+            <input className="w-full p-3 rounded-xl bg-[#E3FCFF]"
                 placeholder="Idade"
+                type="number"
                 value={idade}
                 onChange={(e) => setIdade(e.target.value)}
             />
 
-            <select
-                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
-                value={genero}
-                onChange={(e) => setGenero(e.target.value)}
-            >
-                <option value="">--Selecione seu gênero--</option>
-                <option value="masculino">Masculino</option>
-                <option value="feminino">Feminino</option>
-                <option value="outro">Outro</option>
-            </select>
-
-            <input
-                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
-                type="text"
+            <input className="w-full p-3 rounded-xl bg-[#E3FCFF]"
                 placeholder="Telefone"
                 value={telefone}
                 onChange={(e) => setTelefone(e.target.value)}
             />
 
-            <input
-                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <input
-                className="w-full bg-[#E3FCFF] p-3 rounded-xl shadow-lg text-black"
-                type="password"
-                placeholder="Senha"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-            />
+            <select
+                className="w-full p-3 rounded-xl bg-[#E3FCFF]"
+                value={genero}
+                onChange={(e) => setGenero(e.target.value)}
+            >
+                <option value="">--Selecione o gênero--</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="outro">Outro</option>
+            </select>
 
             <button
                 onClick={handleCadastro}
-                className="w-full text-black font-bold bg-[#38d3a6] p-5 rounded-full shadow-lg cursor-pointer hover:opacity-90 transition"
+                className="w-full bg-[#38d3a6] p-4 rounded-full font-bold"
             >
-                CADASTRE-SE
+                CADASTRAR
             </button>
-
-            {erro && <p className="text-red-600 font-semibold">{erro}</p>}
-            {sucesso && <p className="text-green-600 font-semibold">{sucesso}</p>}
-
-            <p className="text-black text-sm">
-                Já tem uma conta?{" "}
-                <button
-                    onClick={handleVoltarLogin}
-                    className="text-[#38d3a6] font-semibold hover:underline transition"
-                >
-                    Faça Login
-                </button>
-            </p>
         </div>
     );
 }
